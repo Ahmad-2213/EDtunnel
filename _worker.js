@@ -409,10 +409,7 @@ function processวเลสHeader(วเลสBuffer, userID) {
 		isUDP = false;
 	} else if (command === 2) {
 		isUDP = true;
-	} else if (command === 3) {
-		isUDP = true;
-	}
-	else {
+	}else {
 		return {
 			hasError: true,
 			message: `command ${command} is not support, command 01-tcp,02-udp,03-mux`,
