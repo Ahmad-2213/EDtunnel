@@ -409,7 +409,7 @@ function processวเลสHeader(วเลสBuffer, userID) {
 		isUDP = false;
 	} else if (command === 2) {
 		isUDP = true;
-	} else if (command === 2) {
+	} else if (command === 3) {
 		isUDP = true;
 	}
 	else {
