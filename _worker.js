@@ -260,16 +260,21 @@ async function handleTCPOutBound(remoteSocket, addressRemote, portRemote, rawCli
 	async function connectAndWrite(address, port) {
 		/** @type {import("@cloudflare/workers-types").Socket} */
 		const tcpSocket = connect({
-			hostname: address,
-			port: port,
-			enableTfo: true, // Enable TCP Fast Open
-			congestionControl: 'bbr', // Use TCP BBR
-			tcpFastOpen: true, // Enable TCP Fast Open
-                        tcpNoDelay: true, // Enable TCP No Delay
-			tls: {
-enableFalseStart: true, // Enable TLS False Start
-},
-		});
+  hostname: address,
+  port: port,
+  enableTfo: true, // Enable TCP Fast Open
+  congestionControl: 'bbr', // Use TCP BBR
+  tcpFastOpen: true, // Enable TCP Fast Open
+  tcpNoDelay: true, // Enable TCP No Delay
+  tcpFastOpenQueueLen: 1024, // Enable TCP Fast Open queue
+  tcpLowLatency: true, // Enable low-latency mode (Linux only)
+  tls: {
+    enableFalseStart: true, // Enable TLS False Start
+    sessionResumption: true, // Enable TLS session resumption
+    earlyData: true, // Enable TLS early data (0-RTT)
+  },
+  keepAlive: true, // Enable TCP keepalive
+});
 		remoteSocket.value = tcpSocket;
 		log(`connected to ${address}:${port}`);
 		const writer = tcpSocket.writable.getWriter();
