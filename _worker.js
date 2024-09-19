@@ -267,7 +267,7 @@ async function handleTCPOutBound(remoteSocket, addressRemote, portRemote, rawCli
   tcpFastOpen: true, // Enable TCP Fast Open
   tcpNoDelay: true, // Enable TCP No Delay
   tcpFastOpenQueueLen: 1024, // Enable TCP Fast Open queue
-  tcpLowLatency: true, // Enable low-latency mode (Linux only)
+  initialWindowSize: 128 * 1024,
   tls: {
     enableFalseStart: true, // Enable TLS False Start
     sessionResumption: true, // Enable TLS session resumption
