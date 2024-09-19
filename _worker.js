@@ -257,7 +257,9 @@ async function handleTCPOutBound(remoteSocket, addressRemote, portRemote, rawCli
 	 * @param {number} port The port to connect to.
 	 * @returns {Promise<import("@cloudflare/workers-types").Socket>} A Promise that resolves to the connected socket.
 	 */
-	const tcpSocket = connect({
+	async function connectAndWrite(address, port) {
+		/** @type {import("@cloudflare/workers-types").Socket} */
+		const tcpSocket = connect({
   hostname: address,
   port: port,
   enableTfo: true, // Enable TCP Fast Open
@@ -265,6 +267,11 @@ async function handleTCPOutBound(remoteSocket, addressRemote, portRemote, rawCli
   tcpFastOpen: true, // Enable TCP Fast Open
   tcpNoDelay: true, // Enable TCP No Delay
   initialWindowSize: 128 * 1024, // Set initial receive window to 128KB
+  maxWindowSize: 512 * 1024, // Set maximum receive window to 512KB
+  synRetries: 2, // Set SYN retries to 2
+  synTimeout: 1000, // Set SYN timeout to 1 second
+  tcpKeepAliveInterval: 1000, // Set TCP keepalive interval to 1 second
+  tcpKeepAliveProbes: 2, // Set TCP keepalive probes to 2
   tls: {
     enableFalseStart: true, // Enable TLS False Start
   },
