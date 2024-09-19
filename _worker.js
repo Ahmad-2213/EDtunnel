@@ -14,7 +14,7 @@ let พร็อกซีไอพี = พร็อกซีไอพีs[Math.
 // ipv6 พร็อกซีไอพี example remove comment to use
 // let พร็อกซีไอพี = "[2a01:4f8:c2c:123f:64:5:6810:c55a]"
 
-let dohURL = 'https://dns10.quad9.net/dns-query'; // https://cloudflare-dns.com/dns-query or https://dns.google/dns-query
+let dohURL = 'https://cloudflare-dns.com/dns-query?edns=1'; // https://cloudflare-dns.com/dns-query or https://dns.google/dns-query
 
 if (!isValidUUID(userID)) {
 	throw new Error('uuid is invalid');
@@ -148,7 +148,9 @@ export async function hashHex_f(string) {
 async function วเลสOverWSHandler(request) {
 	const webSocketPair = new WebSocketPair();
 	const [client, webSocket] = Object.values(webSocketPair);
-	webSocket.accept();
+	webSocket.accept({
+maxPayload: 1048576, // Increase the maximum payload size
+});
 
 	let address = '';
 	let portWithRandomLog = '';
@@ -260,6 +262,13 @@ async function handleTCPOutBound(remoteSocket, addressRemote, portRemote, rawCli
 		const tcpSocket = connect({
 			hostname: address,
 			port: port,
+			enableTfo: true, // Enable TCP Fast Open
+			congestionControl: 'bbr', // Use TCP BBR
+			tcpFastOpen: true, // Enable TCP Fast Open
+                        tcpNoDelay: true, // Enable TCP No Delay
+			tls: {
+enableFalseStart: true, // Enable TLS False Start
+},
 		});
 		remoteSocket.value = tcpSocket;
 		log(`connected to ${address}:${port}`);
