@@ -507,7 +507,7 @@ async function remoteSocketToWS(remoteSocket, webSocket, วเลสResponseHea
 	let chunks = [];
 	/** @type {ArrayBuffer | null} */
 	let วเลสHeader = วเลสResponseHeader;
-	let hasIncomingData = false; // check if remoteSocket has incoming data
+	let hasIncomingData = true; // check if remoteSocket has incoming data
 	await remoteSocket.readable
 		.pipeTo(
 			new WritableStream({
