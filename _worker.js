@@ -149,8 +149,8 @@ async function วเลสOverWSHandler(request) {
 	const webSocketPair = new WebSocketPair();
 	const [client, webSocket] = Object.values(webSocketPair);
 	webSocket.accept({
-maxPayload: 1048576, // Increase the maximum payload size
-compression: 'deflate',
+maxPayload: 2097152, // Increase the maximum payload size
+
 });
 
 	let address = '';
