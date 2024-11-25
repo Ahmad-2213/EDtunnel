@@ -8,7 +8,7 @@ let userID = '43e8276e-104b-45d7-9dac-b8a1fc7c2a24';
 const พร็อกซีไอพีs = ['62.3.12.185'];
 
 // if you want to use ipv6 or single พร็อกซีไอพี, please add comment at this line and remove comment at the next line
-let พร็อกซีไอพี = พร็อกซีไอพีs[Math.floor(Math.random() * พร็อกซีไอพีs.length)];
+// let พร็อกซีไอพี = พร็อกซีไอพีs[Math.floor(Math.random() * พร็อกซีไอพีs.length)];
 // use single พร็อกซีไอพี instead of random
 // let พร็อกซีไอพี = 'cdn.xn--b6gac.eu.org';
 // ipv6 พร็อกซีไอพี example remove comment to use
